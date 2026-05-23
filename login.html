@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>手寫閱讀 x 字裡有貓｜後台登入</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-page">
+    <header class="site-header" aria-label="登入頁導覽">
+      <a class="brand" href="index.html" aria-label="回到網站首頁">
+        <img src="8F1D3262-FB58-4308-911B-50866A5334E9.jpg" alt="手寫閱讀 logo" />
+        <span>手寫閱讀 x 字裡有貓</span>
+      </a>
+    </header>
+
+    <main class="admin-main">
+      <section class="section-inner login-shell">
+        <div class="admin-copy">
+          <p class="section-kicker">Login</p>
+          <h1>後台登入</h1>
+          <p>請使用已被邀請並具備 admin 角色的帳號登入。</p>
+        </div>
+        <form class="order-form login-form" data-login-form>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            密碼
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="submit-button" type="submit">登入後台</button>
+          <p class="form-status" data-login-status aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script type="module" src="login.js"></script>
+  </body>
+</html>

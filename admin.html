@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>手寫閱讀 x 字裡有貓｜簡易後台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-page">
+    <header class="site-header" aria-label="後台導覽">
+      <a class="brand" href="index.html" aria-label="回到網站首頁">
+        <img src="8F1D3262-FB58-4308-911B-50866A5334E9.jpg" alt="手寫閱讀 logo" />
+        <span>手寫閱讀 x 字裡有貓</span>
+      </a>
+      <nav class="nav-links" aria-label="後台導覽">
+        <a href="index.html">回網站</a>
+      </nav>
+    </header>
+
+    <main class="admin-main">
+      <section class="section-inner admin-shell">
+        <div class="admin-copy">
+          <p class="section-kicker">Admin</p>
+          <h1>簡易後台</h1>
+          <p>
+            這個後台會把內容存在你目前瀏覽器的本機儲存空間，方便你自己調整封面文案。若要讓所有訪客都看到更新，之後需要接正式後台或把文字寫回網站檔案。
+          </p>
+        </div>
+
+        <form class="order-form admin-form" data-admin-form>
+          <label>
+            封面小標
+            <input name="heroEyebrow" required />
+          </label>
+          <label>
+            封面標題
+            <textarea name="heroTitle" rows="3" required></textarea>
+          </label>
+          <label>
+            封面副標題
+            <textarea name="heroSubtitle" rows="4" required></textarea>
+          </label>
+          <label>
+            主按鈕文字
+            <input name="primaryCta" required />
+          </label>
+          <label>
+            次按鈕文字
+            <input name="secondaryCta" required />
+          </label>
+          <fieldset class="admin-toolbar" aria-label="封面文字工具列">
+            <legend>封面文字工具列</legend>
+            <label>
+              字型
+              <select name="heroFontFamily">
+                <option value='"Noto Serif TC", "Microsoft JhengHei", "PingFang TC", serif'>明體感／閱讀風</option>
+                <option value='"Microsoft JhengHei", "PingFang TC", sans-serif'>黑體／清爽易讀</option>
+                <option value='"DFKai-SB", "BiauKai", "KaiTi", serif'>楷體／手寫感</option>
+              </select>
+            </label>
+            <label>
+              標題大小
+              <input name="heroTitleSize" type="range" min="24" max="64" step="1" />
+              <output data-output-for="heroTitleSize"></output>
+            </label>
+            <label>
+              副標題大小
+              <input name="heroSubtitleSize" type="range" min="14" max="28" step="1" />
+              <output data-output-for="heroSubtitleSize"></output>
+            </label>
+            <label>
+              段落間距
+              <input name="heroParagraphGap" type="range" min="8" max="44" step="1" />
+              <output data-output-for="heroParagraphGap"></output>
+            </label>
+          </fieldset>
+          <div class="admin-preview" aria-label="封面文字預覽">
+            <p data-preview-field="heroEyebrow"></p>
+            <h2 data-preview-field="heroTitle"></h2>
+            <p data-preview-field="heroSubtitle"></p>
+          </div>
+          <fieldset class="admin-toolbar" aria-label="表單連結設定">
+            <legend>表單連結</legend>
+            <label>
+              正式訂購表單網址
+              <input name="orderFormUrl" type="url" placeholder="https://forms.gle/..." />
+            </label>
+            <label>
+              聯絡或客製詢問網址
+              <input name="contactUrl" type="url" placeholder="https://www.instagram.com/..." />
+            </label>
+          </fieldset>
+          <fieldset class="admin-product-panel" aria-label="商品上架與首頁商品編輯">
+            <legend>商品上架與首頁販售商品</legend>
+            <div class="admin-product-actions">
+              <button class="reset-button" type="button" data-product-add>新增商品</button>
+            </div>
+            <div class="admin-product-list" data-products-editor></div>
+          </fieldset>
+          <fieldset class="admin-product-panel" aria-label="訂單紀錄">
+            <legend>訂單紀錄</legend>
+            <div class="admin-product-actions">
+              <button class="reset-button" type="button" data-orders-refresh>重新整理訂單</button>
+            </div>
+            <div class="admin-orders-list" data-orders-list>
+              <p class="empty-cart">尚未讀取訂單。</p>
+            </div>
+          </fieldset>
+          <div class="admin-actions">
+            <button class="submit-button" type="submit">儲存設定</button>
+            <button class="reset-button" type="button" data-admin-reset>恢復預設</button>
+          </div>
+          <p class="form-status" data-admin-status aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

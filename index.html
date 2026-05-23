@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>手寫閱讀 x 字裡有貓｜閱讀、手寫、書法、思考</title>
+    <meta
+      name="description"
+      content="手寫閱讀販售手寫字帖、閱讀筆記本、療癒文字卡與客製書法作品，陪你把閱讀與生活慢慢寫下來。"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="主選單">
+      <a class="brand" href="#top" aria-label="回到首頁">
+        <img src="8F1D3262-FB58-4308-911B-50866A5334E9.jpg" alt="手寫閱讀 logo" />
+        <span>手寫閱讀 x 字裡有貓</span>
+      </a>
+      <nav class="nav-links" aria-label="網站導覽">
+        <a href="#products">商品</a>
+        <a href="#journal">理念</a>
+        <a href="#order">訂購</a>
+        <a href="admin.html">後台</a>
+      </nav>
+      <button class="cart-button" type="button" data-cart-toggle aria-label="開啟購物車">
+        <span>購物車</span>
+        <strong data-cart-count>0</strong>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="手寫閱讀主視覺">
+        <img class="hero-image" src="198C029F-D149-499B-B6BF-B908A2017A3E.jpg" alt="手寫閱讀主視覺封面" />
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="eyebrow" data-site-field="heroEyebrow">閱讀・手寫・書法・思考</p>
+          <h1 data-site-field="heroTitle">把讀過的句子，寫成陪伴自己的日常。</h1>
+          <p class="hero-copy" data-site-field="heroSubtitle">
+            從字帖、筆記本到療癒文字卡，為喜歡閱讀與手寫的人，準備安靜而有溫度的作品。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#products" data-site-field="primaryCta">選購商品</a>
+            <a class="secondary-link" href="#order" data-site-field="secondaryCta">客製詢問</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-section" aria-label="品牌介紹">
+        <div class="section-inner intro-grid">
+          <div>
+            <p class="section-kicker">For slow living</p>
+            <h2>為每天留一點可以靜下來的時間。</h2>
+          </div>
+          <p>
+            手寫閱讀相信，閱讀是遇見更好的自己，書寫是記錄真實的生活。每一件商品都以溫柔文字、留白與紙感為核心，適合送禮，也適合留給自己。
+          </p>
+        </div>
+      </section>
+
+      <section class="products-section" id="products" aria-label="商品列表">
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="section-kicker">Shop</p>
+            <h2>精選商品</h2>
+          </div>
+          <div class="product-grid" data-products-grid></div>
+        </div>
+      </section>
+
+      <section class="journal-section" id="journal" aria-label="品牌理念">
+        <div class="section-inner journal-layout">
+          <div class="quote-block">
+            <p>讀書是為了遇見更好的自己，</p>
+            <p>書寫是為了記錄真實的生活。</p>
+          </div>
+          <div class="journal-copy">
+            <p class="section-kicker">Brand note</p>
+            <h2>陪伴你把每一天寫得安穩。</h2>
+            <p>
+              商品風格以淡墨、紙張肌理、溫柔留白為基調。無論是日常書寫、閱讀整理，或想送出一份安靜的禮物，都能找到適合的選擇。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="order-section" id="order" aria-label="訂購表單">
+        <div class="section-inner order-grid">
+          <div>
+            <p class="section-kicker">Order</p>
+            <h2>留下需求，整理好後就能出貨或報價。</h2>
+            <p>
+              目前網站為訂購詢問版。送出後會自動整理商品與聯絡資訊，你可以再接 IG、Email 或表單服務。
+            </p>
+          </div>
+          <form class="order-form" data-order-form>
+            <label>
+              姓名
+              <input name="name" autocomplete="name" required />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              想購買或客製的內容
+              <textarea name="message" rows="5" required placeholder="例如：靜心手寫字帖 1 本，想加購明信片組。"></textarea>
+            </label>
+            <button class="submit-button" type="submit">產生訂購訊息</button>
+            <a class="form-link" href="#" target="_blank" rel="noreferrer" data-form-link hidden>開啟正式訂購表單</a>
+            <p class="form-status" data-form-status aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <aside class="cart-panel" data-cart-panel aria-label="購物車" aria-hidden="true">
+      <div class="cart-header">
+        <h2>購物車</h2>
+        <button type="button" data-cart-close aria-label="關閉購物車">×</button>
+      </div>
+      <div class="cart-items" data-cart-items>
+        <p class="empty-cart">尚未加入商品。</p>
+      </div>
+      <div class="cart-total">
+        <span>小計</span>
+        <strong data-cart-total>NT$ 0</strong>
+      </div>
+      <a class="cart-order-link" href="#order" data-cart-close-link>前往訂購</a>
+    </aside>
+
+    <footer class="site-footer">
+      <div class="section-inner footer-inner">
+        <p>© 2026 手寫閱讀 x 字裡有貓</p>
+        <p>閱讀・手寫・書法・思考</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
