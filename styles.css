@@ -542,6 +542,10 @@ h1 {
   min-height: 100vh;
 }
 
+.admin-locked .admin-main {
+  display: none;
+}
+
 .admin-main {
   padding: 128px 0 72px;
 }

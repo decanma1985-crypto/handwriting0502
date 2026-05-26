@@ -18,6 +18,10 @@ function hasAdminRole(user: any) {
   return Array.isArray(roles) && roles.includes("admin");
 }
 
+function isOwner(user: any) {
+  return user?.email === "decanma1985@gmail.com" && hasAdminRole(user);
+}
+
 function normalizeProduct(row: any) {
   return {
     id: row.id,
@@ -53,7 +57,7 @@ export default async (req: Request, _context: Context) => {
 
   if (req.method === "POST") {
     const user = await getUser();
-    if (!user || !hasAdminRole(user)) {
+    if (!isOwner(user)) {
       return json({ error: "Unauthorized" }, { status: 401 });
     }
 
