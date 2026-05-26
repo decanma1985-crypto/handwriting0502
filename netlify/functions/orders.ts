@@ -22,10 +22,20 @@ function isOwner(user: any) {
   return user?.email === "decanma1985@gmail.com" && hasAdminRole(user);
 }
 
+function hasAllowedOrigin(req: Request) {
+  const origin = req.headers.get("origin");
+  if (!origin) return true;
+  return origin === new URL(req.url).origin;
+}
+
 export default async (req: Request, _context: Context) => {
   const db = getDatabase();
 
   if (req.method === "POST") {
+    if (!hasAllowedOrigin(req)) {
+      return json({ error: "Forbidden origin" }, { status: 403 });
+    }
+
     const body = await req.json();
     const items = Array.isArray(body.items) ? body.items : [];
     const total = items.reduce((sum: number, item: any) => sum + Number(item.price || 0), 0);

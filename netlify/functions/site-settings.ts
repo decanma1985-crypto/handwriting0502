@@ -22,6 +22,12 @@ function isOwner(user: any) {
   return user?.email === "decanma1985@gmail.com" && hasAdminRole(user);
 }
 
+function hasAllowedOrigin(req: Request) {
+  const origin = req.headers.get("origin");
+  if (!origin) return true;
+  return origin === new URL(req.url).origin;
+}
+
 function normalizeProduct(row: any) {
   return {
     id: row.id,
@@ -56,6 +62,10 @@ export default async (req: Request, _context: Context) => {
   }
 
   if (req.method === "POST") {
+    if (!hasAllowedOrigin(req)) {
+      return json({ error: "Forbidden origin" }, { status: 403 });
+    }
+
     const user = await getUser();
     if (!isOwner(user)) {
       return json({ error: "Unauthorized" }, { status: 401 });
