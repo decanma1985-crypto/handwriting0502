@@ -27,15 +27,7 @@ export default async (req: Request, _context: Context) => {
   const password = String(body.password || "");
 
   if (email !== ownerEmail || !verifyPassword(password, adminPassword)) {
-    return json(
-      {
-        error: "Invalid credentials",
-        passwordConfigured: Boolean(adminPassword),
-        expectedLength: adminPassword.length,
-        receivedLength: password.length,
-      },
-      { status: 401 }
-    );
+    return json({ error: "Invalid credentials" }, { status: 401 });
   }
 
   return json(
