@@ -1,5 +1,4 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { getUser } from "@netlify/identity";
 
 export const ownerEmail = "decanma1985@gmail.com";
 export const sessionCookieName = "admin_session";
@@ -81,16 +80,6 @@ function hasValidSession(req: Request) {
   }
 }
 
-function hasAdminRole(user: any) {
-  const roles = user?.app_metadata?.roles || user?.appMetadata?.roles || [];
-  return Array.isArray(roles) && roles.includes("admin");
-}
-
-async function hasIdentityAdmin() {
-  const user = await getUser().catch(() => null);
-  return user?.email === ownerEmail && hasAdminRole(user);
-}
-
-export async function isAdminRequest(req: Request) {
-  return hasValidSession(req) || (await hasIdentityAdmin());
+export function isAdminRequest(req: Request) {
+  return hasValidSession(req);
 }
