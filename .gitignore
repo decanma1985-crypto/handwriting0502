@@ -3,3 +3,4 @@ node_modules/
 .codex/
 *.zip
 npm-debug.log*
+stock-watch-app/
