@@ -1,11 +1,17 @@
 const form = document.querySelector("[data-login-form]");
 const statusText = document.querySelector("[data-login-status]");
 const ownerEmail = "decanma1985@gmail.com";
+const allowedNextPages = new Set(["admin.html"]);
+
+function getNextPage() {
+  const next = new URLSearchParams(window.location.search).get("next") || "admin.html";
+  return allowedNextPages.has(next) ? next : "admin.html";
+}
 
 async function init() {
   const session = await fetch("/api/admin-session", { credentials: "include", cache: "no-store" }).catch(() => null);
   if (session?.ok) {
-    window.location.replace("admin.html");
+    window.location.replace(getNextPage());
   }
 }
 
@@ -36,7 +42,7 @@ form.addEventListener("submit", async (event) => {
       return;
     }
 
-    window.location.href = "admin.html";
+    window.location.href = getNextPage();
   } catch {
     statusText.textContent = "登入服務暫時無法使用，請稍後再試。";
   }

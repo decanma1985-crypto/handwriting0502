@@ -307,7 +307,7 @@ async function initAdmin() {
   const session = await fetch("/api/admin-session", { credentials: "include", cache: "no-store" }).catch(() => null);
   if (!session?.ok) {
     localStorage.removeItem(storageKey);
-    window.location.replace("login.html");
+    window.location.replace("login.html?next=admin.html");
     return;
   }
 
