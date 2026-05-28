@@ -2,6 +2,13 @@ const form = document.querySelector("[data-login-form]");
 const statusText = document.querySelector("[data-login-status]");
 const ownerEmail = "decanma1985@gmail.com";
 
+async function init() {
+  const session = await fetch("/api/admin-session", { credentials: "include", cache: "no-store" }).catch(() => null);
+  if (session?.ok) {
+    window.location.replace("admin.html");
+  }
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(form);
@@ -34,3 +41,5 @@ form.addEventListener("submit", async (event) => {
     statusText.textContent = "登入服務暫時無法使用，請稍後再試。";
   }
 });
+
+init();
