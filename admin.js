@@ -65,6 +65,7 @@ const form = document.querySelector("[data-admin-form]");
 const statusText = document.querySelector("[data-admin-status]");
 const productsEditor = document.querySelector("[data-products-editor]");
 const ordersList = document.querySelector("[data-orders-list]");
+const customersList = document.querySelector("[data-customers-list]");
 
 function readLocalSettings() {
   try {
@@ -257,15 +258,23 @@ async function loadOrders() {
     ordersList.innerHTML = orders
       .map((order) => {
         const items = Array.isArray(order.items) ? order.items : [];
+        const customer = order.customer || {};
         return `
           <article class="admin-order-item">
             <div>
               <strong>#${order.id} ${order.customer_name}</strong>
               <span>${order.email}</span>
             </div>
+            <p>${customer.phone ? `電話：${customer.phone}` : ""}</p>
+            <p>${customer.address ? `收件資訊：${customer.address}` : ""}</p>
             <p>${order.message || ""}</p>
             <ul>
-              ${items.map((item) => `<li>${item.name} - NT$ ${Number(item.price || 0).toLocaleString("zh-TW")}</li>`).join("")}
+              ${items
+                .map(
+                  (item) =>
+                    `<li>${item.name} - NT$ ${Number(item.price || 0).toLocaleString("zh-TW")}${item.productId ? `（商品ID：${item.productId}）` : ""}</li>`
+                )
+                .join("")}
             </ul>
             <small>${new Date(order.created_at).toLocaleString("zh-TW")}</small>
           </article>
@@ -278,6 +287,45 @@ async function loadOrders() {
 }
 
 document.querySelector("[data-orders-refresh]").addEventListener("click", loadOrders);
+
+async function loadCustomers() {
+  customersList.innerHTML = '<p class="empty-cart">讀取客戶資料中...</p>';
+  try {
+    const response = await fetch("/api/customers", { credentials: "include", cache: "no-store" });
+    if (!response.ok) {
+      customersList.innerHTML = '<p class="empty-cart">無法讀取客戶資料。請確認你已登入 admin 帳號。</p>';
+      return;
+    }
+
+    const data = await response.json();
+    const customers = data.customers || [];
+    if (customers.length === 0) {
+      customersList.innerHTML = '<p class="empty-cart">目前尚無客戶資料。</p>';
+      return;
+    }
+
+    customersList.innerHTML = customers
+      .map(
+        (customer) => `
+          <article class="admin-order-item">
+            <div>
+              <strong>${customer.name || "未命名客戶"}</strong>
+              <span>${customer.email}</span>
+            </div>
+            <p>${customer.phone ? `電話：${customer.phone}` : ""}</p>
+            <p>${customer.address ? `收件資訊：${customer.address}` : ""}</p>
+            <p>${customer.note || ""}</p>
+            <small>訂單 ${customer.order_count || 0} 筆｜累計 NT$ ${Number(customer.total_spent || 0).toLocaleString("zh-TW")}</small>
+          </article>
+        `
+      )
+      .join("");
+  } catch {
+    customersList.innerHTML = '<p class="empty-cart">本機預覽無法讀取雲端客戶資料，部署後即可使用。</p>';
+  }
+}
+
+document.querySelector("[data-customers-refresh]").addEventListener("click", loadCustomers);
 
 async function saveSettings() {
   const settings = getCurrentSettings();
@@ -314,6 +362,7 @@ async function initAdmin() {
   document.body.classList.remove("admin-locked");
   fillForm(await readSettings());
   loadOrders();
+  loadCustomers();
 }
 
 initAdmin();

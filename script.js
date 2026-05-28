@@ -141,6 +141,7 @@ function renderProducts(settings) {
               <button
                 type="button"
                 data-add-cart
+                data-id="${product.id || ""}"
                 data-name="${product.name || "未命名商品"}"
                 data-price="${product.price || 0}"
                 data-url="${product.url || ""}"
@@ -160,6 +161,7 @@ function renderProducts(settings) {
       }
 
       cart.push({
+        id: button.dataset.id,
         name: button.dataset.name,
         price: Number(button.dataset.price),
       });
@@ -219,6 +221,8 @@ async function initSite() {
       "訂購詢問已整理：",
       `姓名：${data.get("name")}`,
       `Email：${data.get("email")}`,
+      `電話：${data.get("phone")}`,
+      `收件資訊：${data.get("address")}`,
       "購物車：",
       selected,
       "備註：",
@@ -234,6 +238,8 @@ async function initSite() {
         body: JSON.stringify({
           name: data.get("name"),
           email: data.get("email"),
+          phone: data.get("phone"),
+          address: data.get("address"),
           message: data.get("message"),
           items: cart,
         }),
