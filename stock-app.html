@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>台股投資觀察｜自選股提醒</title>
+    <link rel="stylesheet" href="stock-app.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Taiwan Stock Watch</p>
+          <h1>台股投資觀察</h1>
+          <p>管理自選股、買賣時機、配股配息提醒與預期獲利試算。</p>
+        </div>
+        <a class="back-link" href="index.html">回網站</a>
+      </header>
+
+      <section class="summary-grid" aria-label="投資總覽">
+        <article>
+          <span>總投入成本</span>
+          <strong data-total-cost>NT$ 0</strong>
+        </article>
+        <article>
+          <span>目前市值</span>
+          <strong data-market-value>NT$ 0</strong>
+        </article>
+        <article>
+          <span>未實現損益</span>
+          <strong data-unrealized-profit>NT$ 0</strong>
+        </article>
+        <article>
+          <span>預估現金股利</span>
+          <strong data-dividend-income>NT$ 0</strong>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <form class="stock-form" data-stock-form>
+          <div class="panel-title">
+            <p class="eyebrow">Watchlist</p>
+            <h2>新增投資標的</h2>
+          </div>
+          <div class="form-grid">
+            <label>
+              股票代號
+              <input name="symbol" inputmode="numeric" placeholder="2330" required />
+            </label>
+            <label>
+              股票名稱
+              <input name="name" placeholder="台積電" required />
+            </label>
+            <label>
+              持有股數
+              <input name="shares" type="number" min="0" step="1" value="0" />
+            </label>
+            <label>
+              平均成本
+              <input name="avgCost" type="number" min="0" step="0.01" value="0" />
+            </label>
+            <label>
+              目前價格
+              <input name="currentPrice" type="number" min="0" step="0.01" value="0" />
+            </label>
+            <label>
+              買進觀察價
+              <input name="buyBelow" type="number" min="0" step="0.01" value="0" />
+            </label>
+            <label>
+              賣出觀察價
+              <input name="sellAbove" type="number" min="0" step="0.01" value="0" />
+            </label>
+            <label>
+              目標價
+              <input name="targetPrice" type="number" min="0" step="0.01" value="0" />
+            </label>
+            <label>
+              現金股利/股
+              <input name="cashDividend" type="number" min="0" step="0.01" value="0" />
+            </label>
+            <label>
+              股票股利/股
+              <input name="stockDividend" type="number" min="0" step="0.001" value="0" />
+            </label>
+            <label>
+              配息日
+              <input name="cashDividendDate" type="date" />
+            </label>
+            <label>
+              配股日
+              <input name="stockDividendDate" type="date" />
+            </label>
+            <label class="full-row">
+              投資理由 / 觀察重點
+              <textarea name="note" rows="4" placeholder="例如：長線定期定額、跌破季線加碼、法人籌碼觀察。"></textarea>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit">儲存標的</button>
+            <button type="button" data-reset-form>清空欄位</button>
+          </div>
+        </form>
+
+        <aside class="calc-panel">
+          <div class="panel-title">
+            <p class="eyebrow">Calculator</p>
+            <h2>獲利試算</h2>
+          </div>
+          <label>
+            試算買進價
+            <input data-calc-buy type="number" min="0" step="0.01" value="0" />
+          </label>
+          <label>
+            試算賣出價
+            <input data-calc-sell type="number" min="0" step="0.01" value="0" />
+          </label>
+          <label>
+            股數
+            <input data-calc-shares type="number" min="0" step="1" value="1000" />
+          </label>
+          <label>
+            預估股利
+            <input data-calc-dividend type="number" min="0" step="1" value="0" />
+          </label>
+          <div class="calc-result">
+            <span>預估損益</span>
+            <strong data-calc-result>NT$ 0</strong>
+            <small>含證交稅 0.3%、手續費 0.1425% 粗估。</small>
+          </div>
+        </aside>
+      </section>
+
+      <section class="list-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Portfolio</p>
+            <h2>自選股清單</h2>
+          </div>
+          <button type="button" data-export>匯出資料</button>
+        </div>
+        <div class="stock-grid" data-stock-list></div>
+      </section>
+    </main>
+
+    <script src="stock-app.js"></script>
+  </body>
+</html>
