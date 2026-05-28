@@ -2,6 +2,22 @@ import { getDatabase } from "@netlify/database";
 import type { Config, Context } from "@netlify/functions";
 import { isAdminRequest, json } from "./_admin-auth";
 
+function normalizeCustomer(row: any) {
+  return {
+    id: String(row.id),
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    address: row.address,
+    note: row.note,
+    order_count: Number(row.order_count || 0),
+    total_spent: Number(row.total_spent || 0),
+    last_order_at: row.last_order_at,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+  };
+}
+
 export default async (req: Request, _context: Context) => {
   if (req.method !== "GET") {
     return json({ error: "Method not allowed" }, { status: 405 });
@@ -25,7 +41,7 @@ export default async (req: Request, _context: Context) => {
     LIMIT 200
   `;
 
-  return json({ customers });
+  return json({ customers: customers.map(normalizeCustomer) });
 };
 
 export const config: Config = {
