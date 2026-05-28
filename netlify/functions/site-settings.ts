@@ -1,32 +1,6 @@
 import { getDatabase } from "@netlify/database";
-import { getUser } from "@netlify/identity";
 import type { Config, Context } from "@netlify/functions";
-
-function json(data: unknown, init: ResponseInit = {}) {
-  return new Response(JSON.stringify(data), {
-    ...init,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
-      ...init.headers,
-    },
-  });
-}
-
-function hasAdminRole(user: any) {
-  const roles = user?.app_metadata?.roles || user?.appMetadata?.roles || [];
-  return Array.isArray(roles) && roles.includes("admin");
-}
-
-function isOwner(user: any) {
-  return user?.email === "decanma1985@gmail.com" && hasAdminRole(user);
-}
-
-function hasAllowedOrigin(req: Request) {
-  const origin = req.headers.get("origin");
-  if (!origin) return true;
-  return origin === new URL(req.url).origin;
-}
+import { hasAllowedOrigin, isAdminRequest, json } from "./_admin-auth";
 
 function normalizeProduct(row: any) {
   return {
@@ -66,8 +40,7 @@ export default async (req: Request, _context: Context) => {
       return json({ error: "Forbidden origin" }, { status: 403 });
     }
 
-    const user = await getUser();
-    if (!isOwner(user)) {
+    if (!(await isAdminRequest(req))) {
       return json({ error: "Unauthorized" }, { status: 401 });
     }
 

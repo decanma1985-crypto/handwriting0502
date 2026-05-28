@@ -1,7 +1,3 @@
-import { getUser, logout } from "https://esm.sh/@netlify/identity";
-
-const ownerEmail = "decanma1985@gmail.com";
-
 const defaultProducts = [
   {
     id: "copybook",
@@ -308,10 +304,9 @@ async function saveSettings() {
 }
 
 async function initAdmin() {
-  const user = await getUser();
-  if (!user || user.email !== ownerEmail) {
+  const session = await fetch("/api/admin-session", { credentials: "include", cache: "no-store" }).catch(() => null);
+  if (!session?.ok) {
     localStorage.removeItem(storageKey);
-    await logout().catch(() => {});
     window.location.replace("login.html");
     return;
   }
