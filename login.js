@@ -1,7 +1,8 @@
-import { handleAuthCallback, login } from "https://esm.sh/@netlify/identity";
+import { handleAuthCallback, login, logout } from "https://esm.sh/@netlify/identity";
 
 const form = document.querySelector("[data-login-form]");
 const statusText = document.querySelector("[data-login-status]");
+const ownerEmail = "decanma1985@gmail.com";
 
 async function init() {
   try {
@@ -17,7 +18,13 @@ form.addEventListener("submit", async (event) => {
   statusText.textContent = "登入中...";
 
   try {
-    await login(String(data.get("email")), String(data.get("password")));
+    const user = await login(String(data.get("email")), String(data.get("password")));
+    if (user?.email !== ownerEmail) {
+      await logout().catch(() => {});
+      statusText.textContent = "這個帳號沒有後台權限，請使用網站管理者信箱登入。";
+      return;
+    }
+
     window.location.href = "admin.html";
   } catch {
     statusText.textContent = "登入失敗，請確認帳號、密碼與後台權限。";

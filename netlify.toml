@@ -6,30 +6,6 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-[[redirects]]
-  from = "/admin.html"
-  to = "/admin.html"
-  status = 200
-  conditions = { Role = ["admin"] }
-
-[[redirects]]
-  from = "/admin.js"
-  to = "/admin.js"
-  status = 200
-  conditions = { Role = ["admin"] }
-
-[[redirects]]
-  from = "/admin.html"
-  to = "/login.html"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/admin.js"
-  to = "/login.html"
-  status = 302
-  force = true
-
 [[headers]]
   for = "/*"
   [headers.values]
@@ -42,6 +18,12 @@
 
 [[headers]]
   for = "/admin.html"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/admin.js"
   [headers.values]
     Cache-Control = "no-store"
     X-Robots-Tag = "noindex, nofollow"
